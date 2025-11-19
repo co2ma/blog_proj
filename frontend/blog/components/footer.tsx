@@ -61,67 +61,11 @@ export default function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    href="/"
-                                    className="hover:text-purple-600 transition-colors"
-                                >
-                                    소개
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
                                     href="/about-me"
                                     className="hover:text-purple-600 transition-colors"
                                 >
                                     연락
                                 </Link>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 className="mb-3 sm:mb-4 text-sm sm:text-base">
-                            카테고리
-                        </h4>
-                        <ul className="space-y-1.5 sm:space-y-2 text-gray-600 text-sm">
-                            <li>
-                                <a
-                                    href="#music"
-                                    className="hover:text-purple-600 transition-colors"
-                                >
-                                    음악 리뷰
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#dev"
-                                    className="hover:text-purple-600 transition-colors"
-                                >
-                                    개발
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#design"
-                                    className="hover:text-purple-600 transition-colors"
-                                >
-                                    디자인
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#life"
-                                    className="hover:text-purple-600 transition-colors"
-                                >
-                                    일상
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#travel"
-                                    className="hover:text-purple-600 transition-colors"
-                                >
-                                    여행
-                                </a>
                             </li>
                         </ul>
                     </div>

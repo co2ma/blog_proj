@@ -35,12 +35,6 @@ export default function Header() {
                             글
                         </Link>
                         <Link
-                            href="/"
-                            className="text-sm hover:text-purple-600 transition-colors"
-                        >
-                            소개
-                        </Link>
-                        <Link
                             href="/about-me"
                             className="text-sm hover:text-purple-600 transition-colors"
                         >
