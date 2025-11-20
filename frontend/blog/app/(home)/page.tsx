@@ -33,7 +33,13 @@ export default function Home() {
             <div className="container mx-auto m-4 mt-15 px-4">
                 <span className="font-semibold text-3xl">최근 리뷰 곡</span>
                 <div className="p-4 mt-8 mb-8">
-                    <ul className="flex space-x-8 list-none p-0">
+                    <ul
+                        className="
+                        flex flex-col space-y-6         /* 모바일: 세로 배치 */
+                        md:flex-row md:space-y-0 md:space-x-8   /* 데스크탑: 가로 배치 */
+                        list-none p-0
+                    "
+                    >
                         {reviews.map((review) => (
                             <li
                                 key={review.id}
@@ -43,21 +49,18 @@ export default function Home() {
                                     href={`/review/${review.id}`}
                                     className="block w-full h-full"
                                 >
-                                    <div className="grid grid-cols-5 gap-4">
-                                        <div className="col-span-2 bg-black p-2 text-white rounded-2xl">
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div className=" w-32 h-32 col-span-2 bg-black p-2 text-white rounded-2xl">
                                             <div className="aspect-square bg-blue-500 overflow-hidden rounded-2xl">
                                                 <img
                                                     src={review.image}
                                                     alt="1:1 Photo"
-                                                    className="w-32 h-full object-cover"
+                                                    className="w-full h-full object-cover"
                                                 />
-                                                <div className="flex items-center justify-center h-full text-white text-2xl font-bold">
-                                                    이미지 (2/5 너비)
-                                                </div>
                                             </div>
                                         </div>
 
-                                        <div className="col-span-3 flex flex-col ">
+                                        <div className="col-span-2 flex flex-col ">
                                             <div className="text-3xl p-2 text-black font-semibold">
                                                 {review.title}
                                             </div>

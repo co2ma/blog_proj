@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Logo from "./ui/logo";
-import { Moon, Sun } from "lucide-react";
+import { Moon, PenBox, Sun } from "lucide-react";
 
 export default function Header() {
     const [isDark, setIsDark] = useState(false);
@@ -42,14 +42,21 @@ export default function Header() {
                         </Link>
                     </nav>
                 </div>
-                <button
-                    className="transition cursor-pointer"
-                    onClick={() => {
-                        setIsDark(!isDark);
-                    }}
-                >
-                    {isDark === false ? <Sun /> : <Moon />}
-                </button>
+                <div className="flex items-center gap-4">
+                    <button className="w-6 h-6 transition cursor-pointer">
+                        <Link href={`/write`} className="block w-full h-full">
+                            <PenBox />
+                        </Link>
+                    </button>
+                    <button
+                        className="transition cursor-pointer"
+                        onClick={() => {
+                            setIsDark(!isDark);
+                        }}
+                    >
+                        {isDark === false ? <Sun /> : <Moon />}
+                    </button>
+                </div>
             </div>
         </header>
     );
