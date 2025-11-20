@@ -8,7 +8,9 @@ export default function Home() {
 
     useEffect(() => {
         axios
-            .get("/api/posts")
+            .get(
+                "http://localhost:9090/api/posts/recently?category=review&limit=3"
+            )
             .then((response) => {
                 setReviews(response.data);
             })
@@ -28,38 +30,51 @@ export default function Home() {
             </div>
             <div className="container mx-auto m-4 mt-15 px-4">
                 <span className="font-semibold text-2xl">최근 리뷰 곡</span>
-                <div className="bg-gray-100 p-4">
+                <div className="bg-gray-100 p-4 mt-8 mb-8">
                     <ul className="flex space-x-8 list-none p-0">
-                        {/* 2번에서 가져온 reviews 배열을 순회하여 <li> 태그 생성 */}
+                        {reviews.map((review) => (
+                            <li
+                                key={review.id}
+                                className="p-2 bg-blue-500 text-white rounded"
+                            >
+                                <div className="grid grid-cols-5 gap-4">
+                                    <div className="col-span-2 bg-blue-300 p-4 text-white">
+                                        <div className="aspect-square bg-blue-500 overflow-hidden">
+                                            <img
+                                                src="your-image-url.jpg"
+                                                alt="1:1 Photo"
+                                                className="w-full h-full object-cover"
+                                            />
+                                            <div className="flex items-center justify-center h-full text-white text-2xl font-bold">
+                                                이미지 (2/5 너비)
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="col-span-3 flex flex-col gap-4">
+                                        <div className="bg-red-400 p-2 text-white">
+                                            {review.title}
+                                        </div>
+                                        <div className="bg-red-600 p-2 text-white">
+                                            {review.content.substring(0, 50)}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <span className="font-semibold text-2xl">최근 작성 글</span>
+                <div className="bg-gray-100 p-4 mt-8 mb-8">
+                    <ul className="flex space-x-8 list-none p-0">
                         {reviews.map((review) => (
                             <li
                                 key={review.id}
                                 className="p-2 bg-blue-500 text-white rounded"
                             >
                                 {review.title}{" "}
-                                {/* DB에서 가져온 데이터 항목을 표시 */}
                             </li>
                         ))}
-                    </ul>
-                </div>
-                <span className="font-semibold text-2xl">최근 작성 글</span>
-                <div className="bg-gray-100 p-4 mt-4 mb-12">
-                    <ul className="flex space-x-8 list-none p-0">
-                        <li className="p-2 bg-blue-500 text-white rounded">
-                            항목 1
-                        </li>
-                        <li className="p-2 bg-blue-500 text-white rounded">
-                            항목 2
-                        </li>
-                        <li className="p-2 bg-blue-500 text-white rounded">
-                            항목 3
-                        </li>
-                        <li className="p-2 bg-blue-500 text-white rounded">
-                            항목 4
-                        </li>
-                        <li className="p-2 bg-blue-500 text-white rounded">
-                            항목 5
-                        </li>
                     </ul>
                 </div>
             </div>

@@ -32,4 +32,20 @@ public class PostService {
     public void deletePostById(Long id) {
         postRepository.deleteById(id);
     }
+
+    @Transactional(readOnly = true)
+    public List<Post> findPostsByCategory(String category) {
+        return postRepository.findByCategory(category);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Post> findTop10ByOrderByCreateDateDesc() {
+        return postRepository.findTop10ByOrderByCreateDateDesc();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Post> findTop3ByCategoryOrderByCreateDateDesc(String category) {
+        return postRepository.findTop3ByCategoryOrderByCreateDateDesc(category);
+    }
+
 }

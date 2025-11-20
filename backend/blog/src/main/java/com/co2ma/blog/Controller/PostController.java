@@ -28,6 +28,14 @@ public class PostController {
         return ResponseEntity.ok().body(posts);
     }
 
+    @GetMapping("/recently")
+    public ResponseEntity<List<Post>> getRecentlyPosts(
+            @RequestParam(value = "category", defaultValue = "") String category
+    ) {
+        List<Post> posts = postService.findTop3ByCategoryOrderByCreateDateDesc(category);
+        return ResponseEntity.ok().body(posts);
+    }
+
     @PostMapping // ✅ HTTP 헤더에서 키를 받아 검증합니다.
     public ResponseEntity<Post> savePost(
             @RequestBody Post post,
