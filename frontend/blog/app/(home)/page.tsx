@@ -70,11 +70,11 @@ export default function Home() {
                 </div>
                 <span className="font-semibold text-3xl">최근 작성 글</span>
                 <div className="bg-gray-100 p-4 mt-8 mb-8">
-                    <ul className="flex space-x-8 list-none p-0">
+                    <ul className="flex flex-col space-x-8 list-none p-0 gap-4">
                         {reviews.map((review: Song) => (
                             <li
                                 key={review.id}
-                                className="p-2 bg-blue-500 text-white rounded"
+                                className="p-2 bg-gray-100 text-black rounded"
                             >
                                 {review.title}{" "}
                             </li>

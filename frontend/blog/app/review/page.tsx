@@ -1,7 +1,7 @@
 "use client";
 
 import PostList from "@/components/postList";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function Review() {
     const pathname = usePathname();

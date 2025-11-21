@@ -45,7 +45,7 @@ export default function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    href="/reviews"
+                                    href="/review"
                                     className="hover:text-purple-600 transition-colors"
                                 >
                                     음악 리뷰

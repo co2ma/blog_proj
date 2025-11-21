@@ -23,7 +23,7 @@ export default function Header() {
                             홈
                         </Link>
                         <Link
-                            href="/reviews"
+                            href="/review"
                             className="text-sm hover:text-purple-600 transition-colors"
                         >
                             음악 리뷰
