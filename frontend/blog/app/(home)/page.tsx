@@ -5,6 +5,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Songs from "@/components/ui/songs";
+import Toast from "@/components/toast";
 
 interface Song {
     id: number;
@@ -19,6 +20,20 @@ interface Song {
 export default function Home() {
     const [reviews, setReviews] = useState([]);
 
+    const [toast, setToast] = useState({ message: "", type: "" });
+
+    useEffect(() => {
+        const stored = localStorage.getItem("toast");
+        if (stored) {
+            const parsed = JSON.parse(stored);
+
+            setTimeout(() => {
+                setToast(parsed);
+                localStorage.removeItem("toast");
+            }, 0);
+        }
+    }, []);
+
     useEffect(() => {
         axios
             .get("http://localhost:9090/api/posts/recently?category=review")
@@ -31,7 +46,7 @@ export default function Home() {
             });
     }, []);
     return (
-        <div>
+        <div className="relative">
             <div className="w-full h-48 bg-linear-to-r from-green-50 to-purple-200 flex justify-center items-center">
                 <span className="text-lg font-semibold text-center">
                     <span className="text-3xl">"Hello, visitor!\n"</span>
@@ -67,6 +82,9 @@ export default function Home() {
                     </ul>
                 </div>
             </div>
+            {toast.message && (
+                <Toast message={toast.message} type={toast.type as any} />
+            )}
         </div>
     );
 }
