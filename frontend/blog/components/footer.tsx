@@ -45,7 +45,7 @@ export default function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    href="/"
+                                    href="/reviews"
                                     className="hover:text-purple-600 transition-colors"
                                 >
                                     음악 리뷰
@@ -53,7 +53,7 @@ export default function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    href="/"
+                                    href="/posts"
                                     className="hover:text-purple-600 transition-colors"
                                 >
                                     글

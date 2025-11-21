@@ -29,7 +29,7 @@ export default function Header() {
                             음악 리뷰
                         </Link>
                         <Link
-                            href="/"
+                            href="/posts"
                             className="text-sm hover:text-purple-600 transition-colors"
                         >
                             글

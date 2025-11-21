@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 
 "use client";
-import type { Metadata } from "next";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Image from "next/image";
-import Link from "next/link";
 import Songs from "@/components/ui/songs";
 
 interface Song {

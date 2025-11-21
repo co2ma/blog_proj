@@ -6,7 +6,7 @@ export default function Layout({
     return (
         <div>
             {children}
-            &copy; Next JS is Great!
+            {/* &copy; Next JS is Great! */}
         </div>
     );
 }

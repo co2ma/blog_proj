@@ -5,5 +5,9 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
-    return <h1>여긴 안돼요</h1>;
+    return (
+        <div className="container mx-auto m-4 mt-15 px-4">
+            <h1>올바르지 않은 페이지 입니다.</h1>
+        </div>
+    );
 }

@@ -6,8 +6,8 @@ export const metadata: Metadata = {
 
 export default function AboutUs() {
     return (
-        <div>
-            <h1 className="w-24 h-24">About Us</h1>
+        <div className="container mx-auto m-4 mt-15 px-4">
+            <h1 className="w-24 h-24">안녕하세요</h1>
         </div>
     );
 }

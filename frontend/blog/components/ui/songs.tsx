@@ -1,5 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
+
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
 
 interface Song {
     id: number;
@@ -8,7 +9,7 @@ interface Song {
     category: "review" | "notice" | string;
     createDate: string;
     updateDate: string;
-    image: string | null;
+    image: string;
 }
 
 export default function Songs({ reviews }: { reviews: Array<Song> }) {
