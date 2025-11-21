@@ -93,27 +93,27 @@ public class PostController {
         }
     }
 
-    @DeleteMapping // ✅ 삭제 기능에도 API Key 검증을 추가합니다.
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePost(
-            @RequestBody Post post,
-            @RequestHeader(value = "X-API-KEY", required = true) String apiKey) {
+            @PathVariable Long id,
+            @RequestHeader("X-API-KEY") String apiKey
+    ) {
+        log.info("▶️ DELETE /api/posts/{} 요청 수신", id);
 
-        log.info("▶️ DELETE /api/posts 요청 수신. Post ID: {}", post.getId());
-
-        // 1. API Key 검증
+        // API KEY 검증
         if (!requiredApiKey.equals(apiKey)) {
             log.warn("❌ 삭제 접근 거부: 유효하지 않은 API Key.");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         try {
-            postService.deletePostById(post.getId());
-            log.info("✅ 포스트 ID {} 삭제 완료.", post.getId());
-            return ResponseEntity.noContent().build(); // 204 No Content
-
+            postService.deletePostById(id);
+            log.info("🗑️ 포스트 ID {} 삭제 완료.", id);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
-            log.error("🛑 포스트 삭제 중 예외 발생: ID {}", post.getId(), e);
+            log.error("🛑 포스트 삭제 중 예외 발생. ID {}", id, e);
             return ResponseEntity.notFound().build();
         }
     }
+
 }

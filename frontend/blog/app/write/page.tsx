@@ -54,7 +54,7 @@ export default function Write() {
 
             router.push("/");
 
-            console.log("응답:", response.data);
+            //console.log("응답:", response.data);
         } catch (error: any) {
             const message =
                 error?.response?.data?.message ||

@@ -18,7 +18,7 @@ export default function Songs({ reviews }: { reviews: Array<Song> }) {
             key={review.id}
             className="p-2 bg-gray-100 text-white rounded-2xl  hover:bg-gray-200 transition cursor-pointer"
         >
-            <Link href={`/review/${review.id}`} className="block w-full h-full">
+            <Link href={`/posts/${review.id}`} className="block w-full h-full">
                 <div className="grid grid-cols-2 gap-4">
                     <div className=" w-32 h-32 col-span-2 bg-black p-2 text-white rounded-2xl">
                         <div className="aspect-square bg-blue-500 overflow-hidden rounded-2xl">

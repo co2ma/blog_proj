@@ -1,3 +1,8 @@
+"use client";
+
+import api from "@/lib/api";
+import { useState } from "react";
+
 interface Post {
     id: number;
     title: string;
@@ -9,6 +14,23 @@ interface Post {
 }
 
 export default function PostDetail({ post }: { post: Post }) {
+    const [password, setPassword] = useState("");
+
+    const handleDelete = async () => {
+        try {
+            const res = await api.delete(`/api/posts/${post.id}`, {
+                headers: {
+                    "X-API-KEY": password, // Header에 password 전달
+                },
+            });
+
+            alert("삭제되었습니다.");
+            window.location.href = "/";
+        } catch (error) {
+            console.log(error, post.id);
+            alert("비밀번호가 틀렸습니다.");
+        }
+    };
     return (
         <div className="max-w-4xl mx-auto py-10 px-4">
             {/* Title */}
@@ -30,8 +52,29 @@ export default function PostDetail({ post }: { post: Post }) {
             )}
 
             {/* Content */}
-            <div className="text-lg leading-8 whitespace-pre-line">
+            <div className="text-lg leading-8 whitespace-pre-line mb-10">
                 {post.content}
+            </div>
+
+            {/* Delete Section */}
+            <div className="border-t pt-6 mt-10">
+                <h2 className="text-xl font-semibold mb-3">게시글 삭제</h2>
+
+                <div className="flex items-center gap-3">
+                    <input
+                        type="password"
+                        placeholder="비밀번호를 입력하세요"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="border border-gray-300 rounded-lg px-3 py-2 w-60 focus:outline-none focus:ring-2 focus:ring-amber-700"
+                    />
+                    <button
+                        onClick={handleDelete}
+                        className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg cursor-pointer"
+                    >
+                        삭제
+                    </button>
+                </div>
             </div>
         </div>
     );
