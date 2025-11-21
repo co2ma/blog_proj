@@ -3,6 +3,8 @@ package com.co2ma.blog.service;
 import com.co2ma.blog.domain.Post;
 import com.co2ma.blog.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +16,8 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional(readOnly = true)
-    public List<Post> findAllPosts() {
-        return postRepository.findAll();
+    public Page<Post> findAllPosts(Pageable pageable) {
+        return postRepository.findAll(pageable);
     }
 
     @Transactional
@@ -34,8 +36,13 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<Post> findPostsByCategory(String category) {
-        return postRepository.findByCategory(category);
+    public Page<Post> findPostsByCategory(Pageable pageable, String category) {
+        return postRepository.findByCategory(pageable, category);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Post> findPostsExcludingCategory(Pageable pageable, String category) {
+        return postRepository.findByCategoryNot(pageable, category);
     }
 
     @Transactional(readOnly = true)

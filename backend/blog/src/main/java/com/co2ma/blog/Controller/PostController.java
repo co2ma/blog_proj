@@ -5,11 +5,16 @@ import com.co2ma.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -22,11 +27,26 @@ public class PostController {
     @Value("${blog.security.api-key}")
     private String requiredApiKey;
 
-    @GetMapping()
-    public ResponseEntity<List<Post>> getAllPosts() {
-        List<Post> posts = postService.findAllPosts();
-        return ResponseEntity.ok().body(posts);
+    @GetMapping
+    public ResponseEntity<Map<String, Object>> getPosts(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "6") int size,
+            @RequestParam(defaultValue = "posts") String category
+    ) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by("createDate").descending());
+        Page<Post> postsPage;
+        if(category.equals("posts")) postsPage = postService.findPostsExcludingCategory(pageRequest, "review");
+        else postsPage = postService.findPostsByCategory(pageRequest, category);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", postsPage.getContent());
+        response.put("currentPage", postsPage.getNumber() + 1);
+        response.put("totalPages", postsPage.getTotalPages());
+        response.put("totalItems", postsPage.getTotalElements());
+
+        return ResponseEntity.ok(response);
     }
+
 
     @GetMapping("/recently")
     public ResponseEntity<List<Post>> getRecentlyPosts(
@@ -35,6 +55,8 @@ public class PostController {
         List<Post> posts = postService.findTop3ByCategoryOrderByCreateDateDesc(category);
         return ResponseEntity.ok().body(posts);
     }
+
+
 
     @PostMapping // ✅ HTTP 헤더에서 키를 받아 검증합니다.
     public ResponseEntity<Post> savePost(
