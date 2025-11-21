@@ -6,16 +6,7 @@ import { useEffect, useState } from "react";
 import Songs from "@/components/ui/songs";
 import Toast from "@/components/toast";
 import api from "@/lib/api";
-
-interface Song {
-    id: number;
-    title: string;
-    content: string;
-    category: "review" | "notice" | string;
-    createDate: string;
-    updateDate: string;
-    image: string | null;
-}
+import Posts from "@/components/ui/posts";
 
 export default function Home() {
     const [reviews, setReviews] = useState([]);
@@ -51,7 +42,7 @@ export default function Home() {
                     <span className="text-3xl">"Hello, visitor!\n"</span>
                     <br />
                     <br />
-                    음악에 대한 이야기, 개발 관련, 개인적 생각등을 투고하는 곳
+                    음악 리뷰, 개발, 개인적 생각을 끄적이는 곳
                 </span>
             </div>
             <div className="container mx-auto m-4 mt-15 px-4">
@@ -70,14 +61,7 @@ export default function Home() {
                 <span className="font-semibold text-3xl">최근 작성 글</span>
                 <div className="bg-gray-100 p-4 mt-8 mb-8">
                     <ul className="flex flex-col space-x-8 list-none p-0 gap-4">
-                        {reviews.map((review: Song) => (
-                            <li
-                                key={review.id}
-                                className="p-2 bg-gray-100 text-black rounded"
-                            >
-                                {review.title}{" "}
-                            </li>
-                        ))}
+                        <Posts reviews={reviews} />
                     </ul>
                 </div>
             </div>
