@@ -3,8 +3,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Link from "next/link";
+import api from "@/lib/api";
 
 interface Post {
     id: number;
@@ -21,10 +21,6 @@ export default function PostList({ category }: { category: string }) {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const pageSize = 6; // 한 페이지 6개
-
-    const api = axios.create({
-        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-    });
 
     const fetchPosts = async () => {
         try {

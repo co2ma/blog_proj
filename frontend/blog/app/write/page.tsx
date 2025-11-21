@@ -1,15 +1,12 @@
 "use client";
 
 import Toast from "@/components/toast";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import api from "@/lib/api";
 
 export default function Write() {
     const router = useRouter();
-    const api = axios.create({
-        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-    });
 
     const [formData, setFormData] = useState({
         id: "",

@@ -2,10 +2,10 @@
 
 "use client";
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import Songs from "@/components/ui/songs";
 import Toast from "@/components/toast";
+import api from "@/lib/api";
 
 interface Song {
     id: number;
@@ -21,10 +21,6 @@ export default function Home() {
     const [reviews, setReviews] = useState([]);
 
     const [toast, setToast] = useState({ message: "", type: "" });
-
-    const api = axios.create({
-        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-    });
 
     useEffect(() => {
         const stored = localStorage.getItem("toast");
