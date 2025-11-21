@@ -6,6 +6,17 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import Songs from "@/components/ui/songs";
+
+interface Song {
+    id: number;
+    title: string;
+    content: string;
+    category: "review" | "notice" | string;
+    createDate: string;
+    updateDate: string;
+    image: string | null;
+}
 
 export default function Home() {
     const [reviews, setReviews] = useState([]);
@@ -15,6 +26,7 @@ export default function Home() {
             .get("http://localhost:9090/api/posts/recently?category=review")
             .then((response) => {
                 setReviews(response.data);
+                console.log(typeof reviews);
             })
             .catch((error) => {
                 console.error("DB에서 조회가 실패 했습니다.", error);
@@ -40,47 +52,13 @@ export default function Home() {
                         list-none p-0
                     "
                     >
-                        {reviews.map((review) => (
-                            <li
-                                key={review.id}
-                                className="p-2 bg-gray-100 text-white rounded-2xl  hover:bg-gray-200 transition cursor-pointer"
-                            >
-                                <Link
-                                    href={`/review/${review.id}`}
-                                    className="block w-full h-full"
-                                >
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className=" w-32 h-32 col-span-2 bg-black p-2 text-white rounded-2xl">
-                                            <div className="aspect-square bg-blue-500 overflow-hidden rounded-2xl">
-                                                <img
-                                                    src={review.image}
-                                                    alt="1:1 Photo"
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div className="col-span-2 flex flex-col ">
-                                            <div className="text-3xl p-2 text-black font-semibold">
-                                                {review.title}
-                                            </div>
-                                            <div className="p-2 text-blue-900">
-                                                {review.content.substring(
-                                                    0,
-                                                    50
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </li>
-                        ))}
+                        <Songs reviews={reviews} />
                     </ul>
                 </div>
                 <span className="font-semibold text-3xl">최근 작성 글</span>
                 <div className="bg-gray-100 p-4 mt-8 mb-8">
                     <ul className="flex space-x-8 list-none p-0">
-                        {reviews.map((review) => (
+                        {reviews.map((review: Song) => (
                             <li
                                 key={review.id}
                                 className="p-2 bg-blue-500 text-white rounded"
