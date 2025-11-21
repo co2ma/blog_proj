@@ -4,10 +4,8 @@ type ParamsType = {
 type PageProps = {
     params: Promise<ParamsType>;
 };
-async function ReviewDetail(props: PageProps) {
+export default async function PostDetail(props: PageProps) {
     const { id } = await props.params;
     //console.log(await props.params);
     return <div>{id}</div>;
 }
-
-export default ReviewDetail;

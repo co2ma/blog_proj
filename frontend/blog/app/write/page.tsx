@@ -7,6 +7,9 @@ import { useRouter } from "next/navigation";
 
 export default function Write() {
     const router = useRouter();
+    const api = axios.create({
+        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    });
 
     const [formData, setFormData] = useState({
         id: "",
@@ -38,16 +41,12 @@ export default function Write() {
         const requestBody = id ? { id, ...rest } : { ...rest };
 
         try {
-            const response = await axios.post(
-                "http://localhost:9090/api/posts",
-                requestBody,
-                {
-                    headers: {
-                        "X-API-KEY": password,
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await api.post("/api/posts", requestBody, {
+                headers: {
+                    "X-API-KEY": password,
+                    "Content-Type": "application/json",
+                },
+            });
             localStorage.setItem(
                 "toast",
                 JSON.stringify({

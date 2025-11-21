@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Link from "next/link";
 
 interface Post {
     id: number;
@@ -21,10 +22,14 @@ export default function PostList({ category }: { category: string }) {
     const [totalPages, setTotalPages] = useState(1);
     const pageSize = 6; // 한 페이지 6개
 
+    const api = axios.create({
+        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    });
+
     const fetchPosts = async () => {
         try {
-            const res = await axios.get(
-                `http://localhost:9090/api/posts?page=${page}&size=${pageSize}&category=${category}`
+            const res = await api.get(
+                `/api/posts?page=${page}&size=${pageSize}&category=${category}`
             );
             setPosts(res.data.data); // 리스트
             setTotalPages(res.data.totalPages); // 총 페이지 수
@@ -34,8 +39,18 @@ export default function PostList({ category }: { category: string }) {
     };
 
     useEffect(() => {
-        fetchPosts();
-    }, [page]);
+        const fetchData = async () => {
+            try {
+                const res = await api.get(
+                    `/api/posts?page=1&size=6&category=${category}`
+                );
+                setPosts(res.data.data); // ✅ 비동기 후 setState
+            } catch (err) {
+                console.error(err);
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
@@ -44,28 +59,31 @@ export default function PostList({ category }: { category: string }) {
             {/* 게시물 목록 */}
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 cursor-pointer">
                 {posts.map((post) => (
-                    <li
-                        key={post.id}
-                        className="border rounded-xl shadow-md p-4 hover:shadow-lg transition"
-                    >
-                        <img
-                            src={post.image ?? ""}
-                            alt={post.title}
-                            className="w-full h-40 object-cover rounded-md mb-3"
-                        />
+                    <Link key={post.id} href={`../posts/${post.id}`}>
+                        <li className="border rounded-xl shadow-md p-4 hover:shadow-lg transition">
+                            <img
+                                src={post.image ?? ""}
+                                alt={post.title}
+                                className="w-full h-40 object-cover rounded-md mb-3"
+                            />
 
-                        <h2 className="text-lg font-bold mb-1">{post.title}</h2>
-                        <p className="text-sm text-gray-600 line-clamp-2">
-                            {post.content}
-                        </p>
+                            <h2 className="text-lg font-bold mb-1">
+                                {post.title}
+                            </h2>
+                            <p className="text-sm text-gray-600 line-clamp-2">
+                                {post.content}
+                            </p>
 
-                        <div className="flex justify-between mt-4 text-xs text-gray-500">
-                            <span>{post.category}</span>
-                            <span>
-                                {new Date(post.createDate).toLocaleDateString()}
-                            </span>
-                        </div>
-                    </li>
+                            <div className="flex justify-between mt-4 text-xs text-gray-500">
+                                <span>{post.category}</span>
+                                <span>
+                                    {new Date(
+                                        post.createDate
+                                    ).toLocaleDateString()}
+                                </span>
+                            </div>
+                        </li>
+                    </Link>
                 ))}
             </ul>
 

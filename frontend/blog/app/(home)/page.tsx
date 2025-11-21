@@ -22,6 +22,10 @@ export default function Home() {
 
     const [toast, setToast] = useState({ message: "", type: "" });
 
+    const api = axios.create({
+        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    });
+
     useEffect(() => {
         const stored = localStorage.getItem("toast");
         if (stored) {
@@ -35,8 +39,7 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        axios
-            .get("http://localhost:9090/api/posts/recently?category=review")
+        api.get("/api/posts/recently?category=review")
             .then((response) => {
                 setReviews(response.data);
                 console.log(typeof reviews);
