@@ -52,7 +52,7 @@ public class PostController {
     public ResponseEntity<List<Post>> getRecentlyPosts(
             @RequestParam(value = "category", defaultValue = "") String category
     ) {
-        List<Post> posts = postService.findTop3ByCategoryOrderByCreateDateDesc(category);
+        List<Post> posts = postService.findRecently(category);
         return ResponseEntity.ok().body(posts);
     }
 

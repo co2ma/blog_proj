@@ -46,13 +46,13 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<Post> findTop10ByOrderByCreateDateDesc() {
-        return postRepository.findTop10ByOrderByCreateDateDesc();
+    public List<Post> findRecently(String category) {
+        if (category == "" || category.isEmpty()) {
+            return postRepository.findTop10ByOrderByCreateDateDesc();
+        } else {
+            return postRepository.findTop3ByCategoryOrderByCreateDateDesc(category);
+        }
     }
 
-    @Transactional(readOnly = true)
-    public List<Post> findTop3ByCategoryOrderByCreateDateDesc(String category) {
-        return postRepository.findTop3ByCategoryOrderByCreateDateDesc(category);
-    }
 
 }
