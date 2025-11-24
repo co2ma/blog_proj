@@ -1,12 +1,15 @@
 "use client";
 
 import Toast from "@/components/toast";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import api from "@/lib/api";
 
 export default function Write() {
     const router = useRouter();
+
+    const searchParams = useSearchParams();
+    const id = searchParams.get("id");
 
     const [formData, setFormData] = useState({
         id: "",
@@ -16,6 +19,14 @@ export default function Write() {
         category: "",
         password: "",
     });
+
+    useEffect(() => {
+        if (id) {
+            api.get(`/api/posts/${id}`).then((res) => {
+                setFormData(res.data);
+            });
+        }
+    }, [id]);
 
     const [toastInfo, setToastInfo] = useState({
         message: "",
@@ -82,7 +93,7 @@ export default function Write() {
                     <input
                         type="number"
                         name="id"
-                        value={formData.id}
+                        value={formData.id ?? ""}
                         onChange={handleChange}
                         placeholder="자동으로 입력 됩니다"
                         className="w-full border p-2 rounded-md"
@@ -96,7 +107,7 @@ export default function Write() {
                     <input
                         type="text"
                         name="title"
-                        value={formData.title}
+                        value={formData.title ?? ""}
                         onChange={handleChange}
                         placeholder="제목을 입력하세요"
                         className="w-full border p-2 rounded-md"
@@ -111,7 +122,7 @@ export default function Write() {
                     <input
                         type="text"
                         name="image"
-                        value={formData.image}
+                        value={formData.image ?? ""}
                         onChange={handleChange}
                         placeholder="https://example.com/image.jpg"
                         className="w-full border p-2 rounded-md"
@@ -123,7 +134,7 @@ export default function Write() {
                     <label className="block font-medium mb-1">본문</label>
                     <textarea
                         name="content"
-                        value={formData.content}
+                        value={formData.content ?? ""}
                         onChange={handleChange}
                         rows={8}
                         placeholder="내용을 입력하세요"
@@ -136,7 +147,7 @@ export default function Write() {
                     <label className="block font-medium mb-1">카테고리</label>
                     <select
                         name="category"
-                        value={formData.category}
+                        value={formData.category ?? ""}
                         onChange={handleChange}
                         className="w-full border p-2 rounded-md cursor-pointer"
                     >
@@ -156,7 +167,7 @@ export default function Write() {
                     <input
                         type="password"
                         name="password"
-                        value={formData.password}
+                        value={formData.password ?? ""}
                         onChange={handleChange}
                         placeholder="등록 키 값을 입력해주세요"
                         className="w-full border p-2 rounded-md"

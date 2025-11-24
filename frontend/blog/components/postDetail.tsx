@@ -1,6 +1,7 @@
 "use client";
 
 import api from "@/lib/api";
+import Link from "next/link";
 import { useState } from "react";
 
 interface Post {
@@ -34,7 +35,17 @@ export default function PostDetail({ post }: { post: Post }) {
     return (
         <div className="max-w-4xl mx-auto py-10 px-4">
             {/* Title */}
-            <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+            <div className="flex justify-between items-center">
+                <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+
+                <Link
+                    href={`/write?id=5`}
+                    className="p-3 block h-full bg-gray-100 rounded-2xl 
+                    hover:bg-gray-300 transition-colors"
+                >
+                    수정
+                </Link>
+            </div>
 
             {/* Meta */}
             <div className="flex items-center justify-between text-gray-500 text-sm mb-6">
