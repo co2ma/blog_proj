@@ -20,7 +20,7 @@ import java.util.Map;
 @RequestMapping("/api/posts")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://blog-proj-psi.vercel.app")
 public class PostController {
     private final PostService postService;
 
