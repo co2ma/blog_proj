@@ -1,13 +1,12 @@
 "use client";
 
 import Toast from "@/components/toast";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react"; // Suspense 추가
 import { useRouter, useSearchParams } from "next/navigation";
 import api from "@/lib/api";
 
-export default function Write() {
+function WriteForm() {
     const router = useRouter();
-
     const searchParams = useSearchParams();
     const id = searchParams.get("id");
 
@@ -186,5 +185,15 @@ export default function Write() {
                 <Toast message={toastInfo.message} type="error" />
             )}
         </div>
+    );
+}
+
+export default function Write() {
+    return (
+        <Suspense
+            fallback={<div className="text-center mt-10">Loading...</div>}
+        >
+            <WriteForm />
+        </Suspense>
     );
 }
