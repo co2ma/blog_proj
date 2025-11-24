@@ -10,6 +10,7 @@ import Posts from "@/components/ui/posts";
 
 export default function Home() {
     const [reviews, setReviews] = useState([]);
+    const [posts, setPosts] = useState([]);
 
     const [toast, setToast] = useState({ message: "", type: "" });
 
@@ -29,7 +30,15 @@ export default function Home() {
         api.get("/api/posts/recently?category=review")
             .then((response) => {
                 setReviews(response.data);
-                console.log(typeof reviews);
+                //console.log(typeof reviews);
+            })
+            .catch((error) => {
+                console.error("DB에서 조회가 실패 했습니다.", error);
+            });
+        api.get("/api/posts/recently")
+            .then((response) => {
+                setPosts(response.data);
+                //console.log(typeof posts);
             })
             .catch((error) => {
                 console.error("DB에서 조회가 실패 했습니다.", error);
@@ -61,7 +70,7 @@ export default function Home() {
                 <span className="font-semibold text-3xl">최근 작성 글</span>
                 <div className="bg-gray-100 p-4 mt-8 mb-8">
                     <ul className="flex flex-col space-x-8 list-none p-0 gap-4">
-                        <Posts reviews={reviews} />
+                        <Posts reviews={posts} />
                     </ul>
                 </div>
             </div>
