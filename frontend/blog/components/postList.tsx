@@ -30,7 +30,7 @@ export default function PostList({ category }: { category: string }) {
             setPosts(res.data.data); // 리스트
             setTotalPages(res.data.totalPages); // 총 페이지 수
         } catch (err) {
-            console.log("게시물 불러오기 실패", err);
+            //console.log("게시물 불러오기 실패", err);
         }
     };
 

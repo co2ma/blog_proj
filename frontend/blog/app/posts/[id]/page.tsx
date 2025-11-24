@@ -15,7 +15,7 @@ export default async function PostPage(props: {
     params: Promise<{ id: string }>;
 }) {
     const { id } = await props.params;
-    console.log(id);
+    //console.log(id);
     const res = await api.get(`/api/posts/${id}`);
     const post: Post = res.data;
 

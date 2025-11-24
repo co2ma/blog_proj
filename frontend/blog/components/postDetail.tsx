@@ -28,7 +28,7 @@ export default function PostDetail({ post }: { post: Post }) {
             alert("삭제되었습니다.");
             window.location.href = "/";
         } catch (error) {
-            console.log(error, post.id);
+            //console.log(error, post.id);
             alert("비밀번호가 틀렸습니다.");
         }
     };
